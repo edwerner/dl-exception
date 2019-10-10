@@ -108,7 +108,7 @@ public class MySQLDatabase {
 	 * @param length
 	 * @return objectlist
 	 */
-	public static ArrayList<ArrayList<Object>> getData(String sqlString, boolean columns) {
+	public ArrayList<ArrayList<Object>> getData(String sqlString, boolean columns) {
 
 		Statement stmnt = null;
 		ResultSet rs = null;
@@ -181,7 +181,7 @@ public class MySQLDatabase {
 	 * @param numFields
 	 * @return int
 	 */
-	public static int setData(String sqlString, int numFields) {
+	public int setData(String sqlString, int numFields) {
 
 		int status = -1;
 

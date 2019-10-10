@@ -11,12 +11,15 @@ public class Equipment {
 	private String name;
 	private String description;
 	private int capacity;
+	private MySQLDatabase db;
 	
 	/**
 	 * Empty constructor
 	 */
 	public Equipment() {
-		
+		// create sql database instance
+		// and connect to database
+		db = new MySQLDatabase();
 	}
 
 	/**
@@ -93,7 +96,13 @@ public class Equipment {
 		// table format boolean and return
 		// equipment collection
 		String query = "SELECT * FROM equipment";
-		tempList = MySQLDatabase.getData(query, columns);
+		
+		// connect to database
+		db.connect();
+		
+		// query database passing in
+		// columns boolean
+		tempList = db.getData(query, columns);
 		
 		// iterate through collection and
 		// set equipment entity attributes
@@ -111,7 +120,13 @@ public class Equipment {
 			Equipment equipment = new Equipment(id, name, description, capacity);
 			equipmentList.add(equipment);
 		} 
-	
+		
+		// format data table
+		formatTable(equipmentList);
+
+		// close database connection
+		db.close();
+		
 		// return equipment arraylist
 		return equipmentList;
 	}
@@ -129,8 +144,18 @@ public class Equipment {
 		// create put query
 		String putQuery = "Update `equipment` SET `" + column + "` = '" + value + "'  where `EquipID` = '" + equipId +"'";
 		
+		// connect to database
+		db.connect();
+		
+		// update data record by id
+		// and save to database
+		int putDataResult = db.setData(putQuery, 4);
+		
+		// close database connection
+		db.close();
+		
 		// set data
-		return MySQLDatabase.setData(putQuery, 4);
+		return putDataResult;
 	}
 	
 	/**
@@ -148,8 +173,16 @@ public class Equipment {
 		String postQuery = "INSERT into `equipment` (EquipID, EquipmentName, EquipmentDescription, EquipmentCapacity)" + 
 		"VALUES ('" + id + "','" + name + "','" + description + "','" + capacity + "')";
 
-		// post data
-		return MySQLDatabase.setData(postQuery, 4);
+		// connect to database
+		db.connect();
+		
+		// post data and return result count
+		int postDataResult = db.setData(postQuery, 4);
+		
+		// close database connection
+		db.close();
+		
+		return postDataResult;
 	}
 	
 	/**
@@ -163,7 +196,27 @@ public class Equipment {
 		// create delete query
 		String deleteQuery = "DELETE from equipment WHERE EquipID = " + id;
 		
-		// delete record
-		return MySQLDatabase.setData(deleteQuery, 4);
+		// connect to database
+		db.connect();
+				
+		// delete record by id and
+		// return record result count
+		int deleteDataResult = db.setData(deleteQuery, 4);
+
+		// close database connection
+		db.close();
+		
+		return deleteDataResult;
+	}
+
+
+	// format data table from equipment list
+	public void formatTable(ArrayList<Equipment> equipmentList) {
+
+		for (int i = 0; i < equipmentList.size(); i++) {
+			System.out.format("%n%-10s%-17s%-24s%-10s", String.valueOf(equipmentList.get(i).getId()),
+					equipmentList.get(i).getName(), equipmentList.get(i).getDescription(),
+					String.valueOf(equipmentList.get(i).getCapacity()));
+		}
 	}
 }
