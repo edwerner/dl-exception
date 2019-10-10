@@ -20,7 +20,7 @@ public class MySQLDatabase {
 	public MySQLDatabase() {
 		url = "jdbc:mysql://localhost:3306/travel?useSSL=false";
 		username = "root";
-		password = "password";
+		password = "Gv3rn1ca";
 	}
 	
 	/**
@@ -31,7 +31,11 @@ public class MySQLDatabase {
 			conn = DriverManager.getConnection(url, username, password);
 			System.out.println("Connected to database");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing operation.");
+			}
 		}
 	}
 
@@ -44,7 +48,11 @@ public class MySQLDatabase {
 			System.out.println("\n");
 			System.out.println("Closed database connection");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing operation.");
+			}
 		}
 	}
 
@@ -66,7 +74,11 @@ public class MySQLDatabase {
 		try {
 			stmnt = conn.createStatement();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing operation.");
+			}
 		}
 
 		try {
@@ -78,7 +90,11 @@ public class MySQLDatabase {
 			}
 			objectList.add(tempList);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing operation.");
+			}
 		}
 		
 		return objectList;
@@ -102,7 +118,11 @@ public class MySQLDatabase {
 		try {
 			stmnt = conn.createStatement();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing operation.");
+			}
 		}
 
 		try {
@@ -120,7 +140,11 @@ public class MySQLDatabase {
 				objectList.add(tempList);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing operation.");
+			}
 		}
 
 		if (columns) {
@@ -139,7 +163,11 @@ public class MySQLDatabase {
 			    		rsmd.getColumnDisplaySize(4));
 				
 			} catch (SQLException e) {
-				e.printStackTrace();
+				try {
+					throw new DLException(e, e.getMessage());
+				} catch (DLException e1) {
+					System.out.println("There was an error completing operation.");
+				}
 			}
 		}
 		return objectList;
@@ -162,7 +190,11 @@ public class MySQLDatabase {
 			preparedStmt.executeUpdate();
 			status = preparedStmt.getUpdateCount();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing operation.");
+			}
 			status = -1;
 		}
 		

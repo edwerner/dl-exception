@@ -1,0 +1,6 @@
+2019-10-09 at 09:28:45 PM EDT
+Access denied for user 'root'@'localhost' (using password: YES)
+
+2019-10-09 at 09:29:04 PM EDT
+Unknown column 'id' in 'where clause'
+
