@@ -103,6 +103,9 @@ public class Equipment {
 		// query database passing in
 		// columns boolean
 		tempList = db.getData(query, columns);
+
+		// close database connection
+		db.close();
 		
 		// iterate through collection and
 		// set equipment entity attributes
@@ -119,13 +122,7 @@ public class Equipment {
 			// and add to equipment arraylist
 			Equipment equipment = new Equipment(id, name, description, capacity);
 			equipmentList.add(equipment);
-		} 
-		
-		// format data table
-		formatTable(equipmentList);
-
-		// close database connection
-		db.close();
+		}
 		
 		// return equipment arraylist
 		return equipmentList;
@@ -207,16 +204,5 @@ public class Equipment {
 		db.close();
 		
 		return deleteDataResult;
-	}
-
-
-	// format data table from equipment list
-	public void formatTable(ArrayList<Equipment> equipmentList) {
-
-		for (int i = 0; i < equipmentList.size(); i++) {
-			System.out.format("%n%-10s%-17s%-24s%-10s", String.valueOf(equipmentList.get(i).getId()),
-					equipmentList.get(i).getName(), equipmentList.get(i).getDescription(),
-					String.valueOf(equipmentList.get(i).getCapacity()));
-		}
 	}
 }

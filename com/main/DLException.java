@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 
 @SuppressWarnings("serial")
 public class DLException extends Exception {
@@ -19,7 +18,7 @@ public class DLException extends Exception {
 		try {
 			writeLog(values);
 		} catch (IOException e1) {
-			System.out.println("There was an error completing operation.");
+			System.out.println("There was an error completing an operation.");
 		}
 	}
 	
@@ -33,7 +32,7 @@ public class DLException extends Exception {
 			writer.append(values[0]);
 			writer.append("\n\n");
 		} catch (IOException e2) {
-			System.out.println("There was an error completing operation.");
+			System.out.println("There was an error completing an operation.");
 		} finally {
 			writer.close();
 		}

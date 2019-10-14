@@ -20,7 +20,7 @@ public class MySQLDatabase {
 	public MySQLDatabase() {
 		url = "jdbc:mysql://localhost:3306/travel?useSSL=false";
 		username = "root";
-		password = "Gv3rn1ca";
+		password = "student";
 	}
 	
 	/**
@@ -29,12 +29,11 @@ public class MySQLDatabase {
 	public void connect() {
 		try {
 			conn = DriverManager.getConnection(url, username, password);
-			System.out.println("Connected to database");
 		} catch (SQLException e) {
 			try {
 				throw new DLException(e, e.getMessage());
 			} catch (DLException e1) {
-				System.out.println("There was an error completing operation.");
+				System.out.println("There was an error completing an operation.");
 			}
 		}
 	}
@@ -45,13 +44,11 @@ public class MySQLDatabase {
 	public void close() {
 		try {
 			conn.close();
-			System.out.println("\n");
-			System.out.println("Closed database connection");
 		} catch (SQLException e) {
 			try {
 				throw new DLException(e, e.getMessage());
 			} catch (DLException e1) {
-				System.out.println("There was an error completing operation.");
+				System.out.println("There was an error completing an operation.");
 			}
 		}
 	}
@@ -77,7 +74,7 @@ public class MySQLDatabase {
 			try {
 				throw new DLException(e, e.getMessage());
 			} catch (DLException e1) {
-				System.out.println("There was an error completing operation.");
+				System.out.println("There was an error completing an operation.");
 			}
 		}
 
@@ -93,7 +90,7 @@ public class MySQLDatabase {
 			try {
 				throw new DLException(e, e.getMessage());
 			} catch (DLException e1) {
-				System.out.println("There was an error completing operation.");
+				System.out.println("There was an error completing an operation.");
 			}
 		}
 		
@@ -121,7 +118,7 @@ public class MySQLDatabase {
 			try {
 				throw new DLException(e, e.getMessage());
 			} catch (DLException e1) {
-				System.out.println("There was an error completing operation.");
+				System.out.println("There was an error completing an operation.");
 			}
 		}
 
@@ -143,7 +140,7 @@ public class MySQLDatabase {
 			try {
 				throw new DLException(e, e.getMessage());
 			} catch (DLException e1) {
-				System.out.println("There was an error completing operation.");
+				System.out.println("There was an error completing an operation.");
 			}
 		}
 
@@ -166,7 +163,7 @@ public class MySQLDatabase {
 				try {
 					throw new DLException(e, e.getMessage());
 				} catch (DLException e1) {
-					System.out.println("There was an error completing operation.");
+					System.out.println("There was an error completing an operation.");
 				}
 			}
 		}
@@ -193,7 +190,7 @@ public class MySQLDatabase {
 			try {
 				throw new DLException(e, e.getMessage());
 			} catch (DLException e1) {
-				System.out.println("There was an error completing operation.");
+				System.out.println("There was an error completing an operation.");
 			}
 			status = -1;
 		}
