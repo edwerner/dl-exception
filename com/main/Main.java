@@ -5,20 +5,35 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) throws DLException {		
-		// instantiate equipment object
+		// instantiate equipment
+		// object and set id
 		Equipment equipment = new Equipment();
+		equipment.setId(568);
 		
+		// fetch equipment list and
+		// log single equipment
 		ArrayList<Equipment> equipmentList = equipment.fetch();
-		formatTable(equipmentList);
+		logSingleEquipment(equipmentList);
 		
-//		int postCount = equipment.post(5000, "Lego Airplane", "Airplane made of legos", 1);
-//		System.out.println("POST COUNT: " + postCount);
-//		
-//		int deleteCount = equipment.delete(5000);
-//		System.out.println("DELETE COUNT: " + deleteCount);
+		// alter existing data record
+		equipment.put(568, "EquipmentName", "JetBlue Airbus");
 		
-//		int putCount = equipment.put(5000, "EquipmentName", "Fake Plane");
-//		System.out.println("PUT COUNT:" + putCount);
+		// fetch equipment list and log
+		// single equipment with altered
+		// record
+		ArrayList<Equipment> alteredEquipmentList = equipment.fetch();
+		logSingleEquipment(alteredEquipmentList);
+		
+	}
+	
+	public static void logSingleEquipment(ArrayList<Equipment> equipmentList) {
+		for (Equipment equip : equipmentList) {
+			if (equip.getId() == 568) {
+				System.out.println(equip.getId() + " " 
+						+ equip.getName() + " " + equip.getDescription() 
+						+ " " + equip.getCapacity());
+			}
+		}
 	}
 
 	// format data table from equipment list
