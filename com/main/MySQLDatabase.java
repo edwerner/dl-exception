@@ -2,29 +2,38 @@ package com.main;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * The Class MySQLDatabase
+ * The Class MySQLDatabase.
  */
 public class MySQLDatabase {
 
+	/** The conn. */
 	private static Connection conn;
+	
+	/** The url. */
 	private String url;
+	
+	/** The username. */
 	private String username;
+	
+	/** The password. */
 	private String password;
 
 	/**
 	 * Instantiates a new my SQL database
-	 * and sets database connection attributes
+	 * and sets database connection attributes.
 	 */
 	public MySQLDatabase() {
 		url = "jdbc:mysql://localhost:3306/travel?useSSL=false";
 		username = "root";
-		password = "student";
+		password = "Gv3rn1ca";
 	}
 	
 	/**
-	 * Connect to mysql driver
+	 * Connect to mysql driver.
 	 */
 	public void connect() {
 		try {
@@ -39,7 +48,7 @@ public class MySQLDatabase {
 	}
 
 	/**
-	 * Close mysql database connection
+	 * Close mysql database connection.
 	 */
 	public void close() {
 		try {
@@ -55,10 +64,10 @@ public class MySQLDatabase {
 
 	/**
 	 * Fetch data from mysql database
-	 * called from model class
+	 * called from model class.
 	 *
-	 * @param sqlString
-	 * @param numFields
+	 * @param sqlString the sql string
+	 * @param numFields the num fields
 	 * @return objectlist
 	 */
 	public static ArrayList<ArrayList<Object>> getData(String sqlString, int numFields) {
@@ -99,10 +108,10 @@ public class MySQLDatabase {
 	
 	/**
 	 * Fetch data from mysql database
-	 * called from model class
+	 * called from model class.
 	 *
-	 * @param sqlString
-	 * @param length
+	 * @param sqlString the sql string
+	 * @param columns the columns
 	 * @return objectlist
 	 */
 	public ArrayList<ArrayList<Object>> getData(String sqlString, boolean columns) {
@@ -172,10 +181,10 @@ public class MySQLDatabase {
 
 	/**
 	 * Sets the data for put, post
-	 * and delete model methods
+	 * and delete model methods.
 	 *
-	 * @param sqlString
-	 * @param numFields
+	 * @param sqlString the sql string
+	 * @param numFields the num fields
 	 * @return int
 	 */
 	public int setData(String sqlString, int numFields) {
@@ -196,5 +205,102 @@ public class MySQLDatabase {
 		}
 		
 		return status;
+	}
+	
+	/**
+	 * Prepare.
+	 *
+	 * @param sql
+	 * @return preparedstatement
+	 */
+	private PreparedStatement prepare(String sqlString, List<String> stringList) {
+		
+		// create prepared statement
+		PreparedStatement preparedStmt = null;
+		try {
+			preparedStmt = conn.prepareStatement(sqlString);
+		} catch (SQLException e) {
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+		}
+		
+		return preparedStmt;
+	}
+	
+	public ArrayList<ArrayList<Object>> getData(String sqlString, List<String> stringList) {
+				
+		// create prepared statement
+		// with sql string
+		PreparedStatement preparedStmt = prepare(sqlString, null);
+
+		// create equipment to list,
+		// default to null value
+		ArrayList<Object> tempList = null;
+		
+		// store and return values
+		// in 2d arraylist
+		ArrayList<ArrayList<Object>> objectList = new ArrayList<ArrayList<Object>>();
+		
+		try {
+			// execute prepared statement
+			ResultSet rs = preparedStmt.executeQuery();
+			
+			// iterate and store values
+			// in temp arraylist based
+			// on data type
+			while (rs.next()) {
+				tempList = new ArrayList<Object>();
+				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+					if (rs.getMetaData().getColumnTypeName(i) == "INT") {
+						tempList.add(rs.getInt(i));
+					} else {
+						tempList.add(rs.getString(i));
+					}
+				}
+				// add temp list to 2d arraylist
+				objectList.add(tempList);
+			}
+		} catch (SQLException e) {
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+		}
+		
+		// return 2d array list
+		return objectList;
+	}
+	
+	public int setData(String sqlString, List<String> stringList) {
+		return executeStmt(sqlString, null);
+	}
+	
+	private int executeStmt(String sqlString, List<String> stringList) {
+		
+		int rowCount = 0;
+		
+		try {
+			// create prepared statement
+			// with sql string
+			PreparedStatement preparedStmt = prepare(sqlString, null);
+			
+			// execute prepared update
+			// and assign to rowcount
+			rowCount = preparedStmt.executeUpdate();
+		} catch (SQLException e) {
+			try {
+				throw new DLException(e, e.getMessage());
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+		}
+		
+		// return row count or
+		// default to zero
+		return rowCount;
 	}
 }

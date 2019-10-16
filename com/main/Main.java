@@ -8,11 +8,17 @@ public class Main {
 		// instantiate equipment object
 		Equipment equipment = new Equipment();
 		
-		// fetch formatted
-		// equipment collection
-		ArrayList<Equipment> equipmentList = equipment.fetch(true);
-		
+		ArrayList<Equipment> equipmentList = equipment.fetch();
 		formatTable(equipmentList);
+		
+//		int postCount = equipment.post(5000, "Lego Airplane", "Airplane made of legos", 1);
+//		System.out.println("POST COUNT: " + postCount);
+//		
+//		int deleteCount = equipment.delete(5000);
+//		System.out.println("DELETE COUNT: " + deleteCount);
+		
+//		int putCount = equipment.put(5000, "EquipmentName", "Fake Plane");
+//		System.out.println("PUT COUNT:" + putCount);
 	}
 
 	// format data table from equipment list

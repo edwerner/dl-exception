@@ -86,7 +86,7 @@ public class Equipment {
 	 * @param columns
 	 * @return equipment
 	 */
-	public ArrayList<Equipment> fetch(boolean columns) {
+	public ArrayList<Equipment> fetch() {
 		
 		// query database for equipment by id
 		ArrayList<ArrayList<Object>> tempList = new ArrayList<ArrayList<Object>>();
@@ -100,9 +100,8 @@ public class Equipment {
 		// connect to database
 		db.connect();
 		
-		// query database passing in
-		// columns boolean
-		tempList = db.getData(query, columns);
+		// query database with get method
+		tempList = db.getData(query, null);
 
 		// close database connection
 		db.close();
@@ -146,7 +145,7 @@ public class Equipment {
 		
 		// update data record by id
 		// and save to database
-		int putDataResult = db.setData(putQuery, 4);
+		int putDataResult = db.setData(putQuery, null);
 		
 		// close database connection
 		db.close();
@@ -174,7 +173,7 @@ public class Equipment {
 		db.connect();
 		
 		// post data and return result count
-		int postDataResult = db.setData(postQuery, 4);
+		int postDataResult = db.setData(postQuery, null);
 		
 		// close database connection
 		db.close();
@@ -198,7 +197,7 @@ public class Equipment {
 				
 		// delete record by id and
 		// return record result count
-		int deleteDataResult = db.setData(deleteQuery, 4);
+		int deleteDataResult = db.setData(deleteQuery, null);
 
 		// close database connection
 		db.close();

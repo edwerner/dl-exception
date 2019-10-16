@@ -2,5 +2,11 @@
 Access denied for user 'root'@'localhost' (using password: YES)
 
 2019-10-09 at 09:29:04 PM EDT
-Unknown column 'id' in 'where clause'
+Unknown column 'id' in 'where clause
+
+2019-10-15 at 07:01:27 PM EDT
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'com.mysql.jdbc.JDBC42PreparedStatement@4f2410ac: INSERT into `equipment` (EquipI' at line 1
+
+2019-10-15 at 08:02:23 PM EDT
+Duplicate entry '5000' for key 'PRIMARY'
 
