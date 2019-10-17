@@ -215,10 +215,16 @@ public class MySQLDatabase {
 	 */
 	private PreparedStatement prepare(String sqlString, List<String> stringList) {
 		
-		// create prepared statement
 		PreparedStatement preparedStmt = null;
 		try {
+			// create prepared statement
 			preparedStmt = conn.prepareStatement(sqlString);
+			
+			// iterate and bind data to 
+			// prepared statement
+			for (int i = 0; i < stringList.size(); i++) {
+				preparedStmt.setString(i + 1, stringList.get(i));
+			}
 		} catch (SQLException e) {
 			try {
 				throw new DLException(e, e.getMessage());
@@ -234,7 +240,7 @@ public class MySQLDatabase {
 				
 		// create prepared statement
 		// with sql string
-		PreparedStatement preparedStmt = prepare(sqlString, null);
+		PreparedStatement preparedStmt = prepare(sqlString, stringList);
 
 		// create equipment to list,
 		// default to null value
@@ -245,6 +251,7 @@ public class MySQLDatabase {
 		ArrayList<ArrayList<Object>> objectList = new ArrayList<ArrayList<Object>>();
 		
 		try {
+			
 			// execute prepared statement
 			ResultSet rs = preparedStmt.executeQuery();
 			
@@ -275,8 +282,16 @@ public class MySQLDatabase {
 		return objectList;
 	}
 	
+	//	The 'executeStmt' method would be accepting two-parameter- one a 
+	//	String and another a List<String> like the method 'prepare' . You 
+	//	would simply be sending both these values to an object of 
+	//	PreparedStatement and returning the number of rows affected by it. 
+	//	The second parameter would be parsing through setData method which 
+	//	in turn will have data from Equipment class.
+	
+	
 	public int setData(String sqlString, List<String> stringList) {
-		return executeStmt(sqlString, null);
+		return executeStmt(sqlString, stringList);
 	}
 	
 	private int executeStmt(String sqlString, List<String> stringList) {
@@ -286,7 +301,7 @@ public class MySQLDatabase {
 		try {
 			// create prepared statement
 			// with sql string
-			PreparedStatement preparedStmt = prepare(sqlString, null);
+			PreparedStatement preparedStmt = prepare(sqlString, stringList);
 			
 			// execute prepared update
 			// and assign to rowcount

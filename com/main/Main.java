@@ -13,27 +13,19 @@ public class Main {
 		// fetch equipment list and
 		// log single equipment
 		ArrayList<Equipment> equipmentList = equipment.fetch();
-		logSingleEquipment(equipmentList);
+		formatTable(equipmentList);
+		
+		// re-set equipment id
+		equipment.setId(894);
 		
 		// alter existing data record
-		equipment.put(568, "EquipmentName", "JetBlue Airbus");
+		equipment.put(String.valueOf(894), "EquipmentName", "JetBlue");
 		
 		// fetch equipment list and log
 		// single equipment with altered
 		// record
 		ArrayList<Equipment> alteredEquipmentList = equipment.fetch();
-		logSingleEquipment(alteredEquipmentList);
-		
-	}
-	
-	public static void logSingleEquipment(ArrayList<Equipment> equipmentList) {
-		for (Equipment equip : equipmentList) {
-			if (equip.getId() == 568) {
-				System.out.println(equip.getId() + " " 
-						+ equip.getName() + " " + equip.getDescription() 
-						+ " " + equip.getCapacity());
-			}
-		}
+		formatTable(alteredEquipmentList);
 	}
 
 	// format data table from equipment list

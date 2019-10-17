@@ -1,6 +1,7 @@
 package com.main;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class Equipment
@@ -95,13 +96,17 @@ public class Equipment {
 		// create and execute query passing in
 		// table format boolean and return
 		// equipment collection
-		String query = "SELECT * FROM equipment";
+		String query = "SELECT * FROM equipment where EquipID = ?";
 		
 		// connect to database
 		db.connect();
 		
+		// create string list and set id as string
+		List<String> stringList = new ArrayList<String>();
+		stringList.add(0, String.valueOf(this.getId()));
+		
 		// query database with get method
-		tempList = db.getData(query, null);
+		tempList = db.getData(query, stringList);
 
 		// close database connection
 		db.close();
@@ -135,17 +140,21 @@ public class Equipment {
 	 * @param value
 	 * @return int
 	 */
-	public int put(int equipId, String column, String value) {
+	public int put(String equipId, String column, String value) {
 		
-		// create put query
-		String putQuery = "Update `equipment` SET `" + column + "` = '" + value + "'  where `EquipID` = '" + equipId +"'";
+		String putQuery = "UPDATE equipment SET " + column + " = ? WHERE EquipID = ?";
+		
+		// create string list and set id as string
+		List<String> stringList = new ArrayList<String>();
+		stringList.add(0, value);
+		stringList.add(1, equipId);
 		
 		// connect to database
 		db.connect();
 		
-		// update data record by id
-		// and save to database
-		int putDataResult = db.setData(putQuery, null);
+		// query database with get
+		// method and save to database
+		int putDataResult = db.setData(putQuery, stringList);
 		
 		// close database connection
 		db.close();
