@@ -7,11 +7,11 @@ public class Main {
 	public static void main(String[] args) throws DLException {		
 		// instantiate equipment
 		// object and set id
-		Equipment equipment = new Equipment();
+//		Equipment equipment = new Equipment();
 //		equipment.setId(568);
-//		
-//		// fetch equipment list and
-//		// log single equipment
+////		
+////		// fetch equipment list and
+////		// log single equipment
 //		ArrayList<Equipment> equipmentList = equipment.fetch();
 //		formatTable(equipmentList);
 //		
@@ -25,9 +25,9 @@ public class Main {
 		// single equipment with altered
 		// record
 		
-//		int id, String name, String description, int capacity
-		equipment.post(5000, "POST Plane", "A datababase POST plane", 500);
-		ArrayList<Equipment> alteredEquipmentList = equipment.fetch();
+		Equipment postEquipment = new Equipment(5000, "POST Plane", "A datababase POST plane", 500);
+		postEquipment.post();
+		ArrayList<Equipment> alteredEquipmentList = postEquipment.fetch();
 		formatTable(alteredEquipmentList);
 	}
 

@@ -12,7 +12,7 @@ public class DLException extends Exception {
 	public DLException(Exception e) {
 		super(e);
 	}
-	
+
 	public DLException(Exception e, String... values) {
 		super(e);
 		try {
@@ -21,29 +21,29 @@ public class DLException extends Exception {
 			System.out.println("There was an error completing an operation.");
 		}
 	}
-	
+
 	public void writeLog(Exception e, String... values) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("ErrorLog.txt", true));
 		try {
-			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' hh:mm:ss a z");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' hh:mm:ss a z");
 			Date date = new Date(System.currentTimeMillis());
-			writer.append(formatter.format(date));
-			
-			StackTraceElement[] stackTrace = e.getStackTrace();
+			writer.append("DateTime: " + formatter.format(date));
 
-			for (StackTraceElement element : stackTrace) {
-				if (element.getClassName().contains("com.main")) {
-					System.out.println("Class name: " + element.getClassName());
-					System.out.println("Line number: " + element.getLineNumber());
+			StackTraceElement[] stackTrace = e.getStackTrace();
+			int count = 0;
+
+			for (int i = 0; i < stackTrace.length; i++) {
+				if (stackTrace[i].getClassName().contains("com.main") && count == 0) {
+					writer.append("\n");
+					writer.append("Class name: " + stackTrace[i].getClassName());
+					writer.append("\n");
+					writer.append("Line number: " + stackTrace[i].getLineNumber());
+					writer.append("\n");
+					writer.append("Error message: " + e.getMessage());
+					writer.append("\n\n");
+					count++;
 				}
 			}
-//			writer.append("\n");
-//			writer.append("VALUES[0] " + values[0]);
-//			writer.append("\n");
-//			writer.append("VALUES[1] " + values[1]);
-//			writer.append("\n");
-//			writer.append("Message: " + e.getMessage());
-//			writer.append("\n\n");
 		} catch (IOException e2) {
 			System.out.println("There was an error completing an operation.");
 		} finally {

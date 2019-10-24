@@ -28,8 +28,8 @@ public class MySQLDatabase {
 			conn = DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -44,8 +44,8 @@ public class MySQLDatabase {
 			conn.close();
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -72,8 +72,8 @@ public class MySQLDatabase {
 			stmnt = conn.createStatement();
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -89,8 +89,8 @@ public class MySQLDatabase {
 			objectList.add(tempList);
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -119,8 +119,8 @@ public class MySQLDatabase {
 			stmnt = conn.createStatement();
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -142,8 +142,8 @@ public class MySQLDatabase {
 			}
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -160,8 +160,8 @@ public class MySQLDatabase {
 
 			} catch (SQLException e) {
 				try {
-					String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-					throw new DLException(e, lineNumber);
+					String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+					throw new DLException(e, errorInfo);
 				} catch (DLException e1) {
 					System.out.println("There was an error completing an operation.");
 				}
@@ -206,8 +206,8 @@ public class MySQLDatabase {
 			}
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -236,8 +236,8 @@ public class MySQLDatabase {
 			status = preparedStmt.getUpdateCount();
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -267,8 +267,8 @@ public class MySQLDatabase {
 			}
 		} catch (SQLException e) {
 			try {
-				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
-				throw new DLException(e, lineNumber);
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
