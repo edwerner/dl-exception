@@ -8,22 +8,25 @@ public class Main {
 		// instantiate equipment
 		// object and set id
 		Equipment equipment = new Equipment();
-		equipment.setId(568);
-		
-		// fetch equipment list and
-		// log single equipment
-		ArrayList<Equipment> equipmentList = equipment.fetch();
-		formatTable(equipmentList);
-		
-		// re-set equipment id
-		equipment.setId(894);
+//		equipment.setId(568);
+//		
+//		// fetch equipment list and
+//		// log single equipment
+//		ArrayList<Equipment> equipmentList = equipment.fetch();
+//		formatTable(equipmentList);
+//		
+//		// re-set equipment id
+//		equipment.setId(894);
 		
 		// alter existing data record
-		equipment.put(String.valueOf(894), "EquipmentName", "JetBlue");
+//		equipment.put(String.valueOf(894), "EquipmentName", "JetBlue");
 		
 		// fetch equipment list and log
 		// single equipment with altered
 		// record
+		
+//		int id, String name, String description, int capacity
+		equipment.post(5000, "POST Plane", "A datababase POST plane", 500);
 		ArrayList<Equipment> alteredEquipmentList = equipment.fetch();
 		formatTable(alteredEquipmentList);
 	}

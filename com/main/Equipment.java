@@ -176,13 +176,20 @@ public class Equipment {
 		
 		// create post query
 		String postQuery = "INSERT into `equipment` (EquipID, EquipmentName, EquipmentDescription, EquipmentCapacity)" + 
-		"VALUES ('" + id + "','" + name + "','" + description + "','" + capacity + "')";
+		"VALUES (?, ?, ?, ?)";
 
+		// create string list and set id as string
+				List<String> stringList = new ArrayList<String>();
+				stringList.add(0, String.valueOf(id));
+				stringList.add(1, name);
+				stringList.add(2, description);
+				stringList.add(3, String.valueOf(capacity));
+				
 		// connect to database
 		db.connect();
 		
 		// post data and return result count
-		int postDataResult = db.setData(postQuery, null);
+		int postDataResult = db.setData(postQuery, stringList);
 		
 		// close database connection
 		db.close();

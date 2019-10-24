@@ -10,27 +10,40 @@ import java.text.SimpleDateFormat;
 public class DLException extends Exception {
 
 	public DLException(Exception e) {
-		super(e.getMessage());
+		super(e);
 	}
 	
 	public DLException(Exception e, String... values) {
-		super(values[0]);
+		super(e);
 		try {
-			writeLog(values);
+			writeLog(e, values);
 		} catch (IOException e1) {
 			System.out.println("There was an error completing an operation.");
 		}
 	}
 	
-	public void writeLog(String... values) throws IOException {
+	public void writeLog(Exception e, String... values) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("ErrorLog.txt", true));
 		try {
 			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' hh:mm:ss a z");
 			Date date = new Date(System.currentTimeMillis());
 			writer.append(formatter.format(date));
-			writer.append("\n");
-			writer.append(values[0]);
-			writer.append("\n\n");
+			
+			StackTraceElement[] stackTrace = e.getStackTrace();
+
+			for (StackTraceElement element : stackTrace) {
+				if (element.getClassName().contains("com.main")) {
+					System.out.println("Class name: " + element.getClassName());
+					System.out.println("Line number: " + element.getLineNumber());
+				}
+			}
+//			writer.append("\n");
+//			writer.append("VALUES[0] " + values[0]);
+//			writer.append("\n");
+//			writer.append("VALUES[1] " + values[1]);
+//			writer.append("\n");
+//			writer.append("Message: " + e.getMessage());
+//			writer.append("\n\n");
 		} catch (IOException e2) {
 			System.out.println("There was an error completing an operation.");
 		} finally {

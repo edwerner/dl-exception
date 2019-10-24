@@ -4,34 +4,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class MySQLDatabase.
- */
 public class MySQLDatabase {
 
-	/** The conn. */
 	private static Connection conn;
-	
-	/** The url. */
 	private String url;
-	
-	/** The username. */
 	private String username;
-	
-	/** The password. */
 	private String password;
 
 	/**
-	 * Instantiates a new my SQL database
-	 * and sets database connection attributes.
+	 * Instantiates a new my SQL database and sets database connection attributes.
 	 */
 	public MySQLDatabase() {
 		url = "jdbc:mysql://localhost:3306/travel?useSSL=false";
 		username = "root";
 		password = "Gv3rn1ca";
 	}
-	
+
 	/**
 	 * Connect to mysql driver.
 	 */
@@ -40,7 +28,8 @@ public class MySQLDatabase {
 			conn = DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {
 			try {
-				throw new DLException(e, e.getMessage());
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -55,7 +44,8 @@ public class MySQLDatabase {
 			conn.close();
 		} catch (SQLException e) {
 			try {
-				throw new DLException(e, e.getMessage());
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -63,11 +53,12 @@ public class MySQLDatabase {
 	}
 
 	/**
-	 * Fetch data from mysql database
-	 * called from model class.
+	 * Fetch data from mysql database called from model class.
 	 *
-	 * @param sqlString the sql string
-	 * @param numFields the num fields
+	 * @param sqlString
+	 *            the sql string
+	 * @param numFields
+	 *            the num fields
 	 * @return objectlist
 	 */
 	public static ArrayList<ArrayList<Object>> getData(String sqlString, int numFields) {
@@ -81,7 +72,8 @@ public class MySQLDatabase {
 			stmnt = conn.createStatement();
 		} catch (SQLException e) {
 			try {
-				throw new DLException(e, e.getMessage());
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -97,21 +89,23 @@ public class MySQLDatabase {
 			objectList.add(tempList);
 		} catch (SQLException e) {
 			try {
-				throw new DLException(e, e.getMessage());
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
 		}
-		
+
 		return objectList;
 	}
-	
+
 	/**
-	 * Fetch data from mysql database
-	 * called from model class.
+	 * Fetch data from mysql database called from model class.
 	 *
-	 * @param sqlString the sql string
-	 * @param columns the columns
+	 * @param sqlString
+	 *            the sql string
+	 * @param columns
+	 *            the columns
 	 * @return objectlist
 	 */
 	public ArrayList<ArrayList<Object>> getData(String sqlString, boolean columns) {
@@ -120,12 +114,13 @@ public class MySQLDatabase {
 		ResultSet rs = null;
 		ArrayList<Object> tempList;
 		ArrayList<ArrayList<Object>> objectList = new ArrayList<ArrayList<Object>>();
-		
+
 		try {
 			stmnt = conn.createStatement();
 		} catch (SQLException e) {
 			try {
-				throw new DLException(e, e.getMessage());
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -133,7 +128,7 @@ public class MySQLDatabase {
 
 		try {
 			rs = stmnt.executeQuery(sqlString);
-			
+
 			while (rs.next()) {
 				tempList = new ArrayList<Object>();
 				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
@@ -147,7 +142,8 @@ public class MySQLDatabase {
 			}
 		} catch (SQLException e) {
 			try {
-				throw new DLException(e, e.getMessage());
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
@@ -156,21 +152,16 @@ public class MySQLDatabase {
 		if (columns) {
 			try {
 				ResultSetMetaData rsmd = rs.getMetaData();
-			    System.out.printf("%n%-10s%-17s%-24s%-10s", 
-			    		rsmd.getColumnName(1),
-			    		rsmd.getColumnName(2),
-			    		rsmd.getColumnName(3),
-			    		rsmd.getColumnName(4));
-			    
-			    System.out.printf("%n%-10s%-17s%-24s%-10s", 
-			    		rsmd.getColumnDisplaySize(1),
-			    		rsmd.getColumnDisplaySize(2),
-			    		rsmd.getColumnDisplaySize(3),
-			    		rsmd.getColumnDisplaySize(4));
-				
+				System.out.printf("%n%-10s%-17s%-24s%-10s", rsmd.getColumnName(1), rsmd.getColumnName(2),
+						rsmd.getColumnName(3), rsmd.getColumnName(4));
+
+				System.out.printf("%n%-10s%-17s%-24s%-10s", rsmd.getColumnDisplaySize(1), rsmd.getColumnDisplaySize(2),
+						rsmd.getColumnDisplaySize(3), rsmd.getColumnDisplaySize(4));
+
 			} catch (SQLException e) {
 				try {
-					throw new DLException(e, e.getMessage());
+					String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+					throw new DLException(e, lineNumber);
 				} catch (DLException e1) {
 					System.out.println("There was an error completing an operation.");
 				}
@@ -179,65 +170,8 @@ public class MySQLDatabase {
 		return objectList;
 	}
 
-	/**
-	 * Sets the data for put, post
-	 * and delete model methods.
-	 *
-	 * @param sqlString the sql string
-	 * @param numFields the num fields
-	 * @return int
-	 */
-	public int setData(String sqlString, int numFields) {
-
-		int status = -1;
-
-		try {
-			PreparedStatement preparedStmt = conn.prepareStatement(sqlString);
-			preparedStmt.executeUpdate();
-			status = preparedStmt.getUpdateCount();
-		} catch (SQLException e) {
-			try {
-				throw new DLException(e, e.getMessage());
-			} catch (DLException e1) {
-				System.out.println("There was an error completing an operation.");
-			}
-			status = -1;
-		}
-		
-		return status;
-	}
-	
-	/**
-	 * Prepare.
-	 *
-	 * @param sql
-	 * @return preparedstatement
-	 */
-	private PreparedStatement prepare(String sqlString, List<String> stringList) {
-		
-		PreparedStatement preparedStmt = null;
-		try {
-			// create prepared statement
-			preparedStmt = conn.prepareStatement(sqlString);
-			
-			// iterate and bind data to 
-			// prepared statement
-			for (int i = 0; i < stringList.size(); i++) {
-				preparedStmt.setString(i + 1, stringList.get(i));
-			}
-		} catch (SQLException e) {
-			try {
-				throw new DLException(e, e.getMessage());
-			} catch (DLException e1) {
-				System.out.println("There was an error completing an operation.");
-			}
-		}
-		
-		return preparedStmt;
-	}
-	
 	public ArrayList<ArrayList<Object>> getData(String sqlString, List<String> stringList) {
-				
+
 		// create prepared statement
 		// with sql string
 		PreparedStatement preparedStmt = prepare(sqlString, stringList);
@@ -245,16 +179,16 @@ public class MySQLDatabase {
 		// create equipment to list,
 		// default to null value
 		ArrayList<Object> tempList = null;
-		
+
 		// store and return values
 		// in 2d arraylist
 		ArrayList<ArrayList<Object>> objectList = new ArrayList<ArrayList<Object>>();
-		
+
 		try {
-			
+
 			// execute prepared statement
 			ResultSet rs = preparedStmt.executeQuery();
-			
+
 			// iterate and store values
 			// in temp arraylist based
 			// on data type
@@ -272,48 +206,102 @@ public class MySQLDatabase {
 			}
 		} catch (SQLException e) {
 			try {
-				throw new DLException(e, e.getMessage());
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
 		}
-		
+
 		// return 2d array list
 		return objectList;
 	}
-	
-	//	The 'executeStmt' method would be accepting two-parameter- one a 
-	//	String and another a List<String> like the method 'prepare' . You 
-	//	would simply be sending both these values to an object of 
-	//	PreparedStatement and returning the number of rows affected by it. 
-	//	The second parameter would be parsing through setData method which 
-	//	in turn will have data from Equipment class.
-	
-	
+
+	/**
+	 * Sets the data for put, post and delete model methods.
+	 *
+	 * @param sqlString
+	 *            the sql string
+	 * @param numFields
+	 *            the num fields
+	 * @return int
+	 */
+	public int setData(String sqlString, int numFields) {
+
+		int status = -1;
+
+		try {
+			PreparedStatement preparedStmt = conn.prepareStatement(sqlString);
+			preparedStmt.executeUpdate();
+			status = preparedStmt.getUpdateCount();
+		} catch (SQLException e) {
+			try {
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+			status = -1;
+		}
+
+		return status;
+	}
+
+	/**
+	 * Prepare.
+	 *
+	 * @param sql
+	 * @return preparedstatement
+	 */
+	private PreparedStatement prepare(String sqlString, List<String> stringList) {
+
+		PreparedStatement preparedStmt = null;
+		try {
+			// create prepared statement
+			preparedStmt = conn.prepareStatement(sqlString);
+
+			// iterate and bind data to
+			// prepared statement
+			for (int i = 0; i < stringList.size(); i++) {
+				preparedStmt.setString(i + 1, stringList.get(i));
+			}
+		} catch (SQLException e) {
+			try {
+				String[] lineNumber = { String.valueOf(e.getStackTrace()[0].getLineNumber()) };
+				throw new DLException(e, lineNumber);
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+		}
+
+		return preparedStmt;
+	}
+
 	public int setData(String sqlString, List<String> stringList) {
 		return executeStmt(sqlString, stringList);
 	}
-	
+
 	private int executeStmt(String sqlString, List<String> stringList) {
-		
+
 		int rowCount = 0;
-		
+
 		try {
 			// create prepared statement
 			// with sql string
 			PreparedStatement preparedStmt = prepare(sqlString, stringList);
-			
+
 			// execute prepared update
 			// and assign to rowcount
 			rowCount = preparedStmt.executeUpdate();
 		} catch (SQLException e) {
 			try {
-				throw new DLException(e, e.getMessage());
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
 		}
-		
+
 		// return row count or
 		// default to zero
 		return rowCount;
