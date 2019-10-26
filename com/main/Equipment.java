@@ -146,14 +146,14 @@ public class Equipment {
 	 * @param value
 	 * @return int
 	 */
-	public int put(String equipId, String column, String value) {
+	public int put(String column, String value) {
 
 		String putQuery = "UPDATE equipment SET " + column + " = ? WHERE EquipID = ?";
 
 		// create string list and set id as string
 		List<String> stringList = new ArrayList<String>();
 		stringList.add(0, value);
-		stringList.add(1, equipId);
+		stringList.add(1, String.valueOf(this.id));
 
 		// connect to database
 		db.connect();
@@ -205,21 +205,31 @@ public class Equipment {
 	 * @param id
 	 * @return int
 	 */
-	public int delete(int id) {
-
-		// create delete query
-		String deleteQuery = "DELETE from equipment WHERE EquipID = " + id;
-
+	public int delete() {
+		
+		String disableFKQuery = "SET FOREIGN_KEY_CHECKS=0;"; 
+		String enableFKQuery = "SET FOREIGN_KEY_CHECKS=1;";
+		String deleteEquipQuery = "DELETE FROM equipment WHERE EquipID = ?;";
+		String deleteTripQuery = "DELETE FROM trip WHERE EquipId = ?;";
+		
+		// store prepared statement attributes
+		List<String> stringList = new ArrayList<String>();
+		stringList.add(0, String.valueOf(this.id));
+//		stringList.add(1, String.valueOf(this.id));
+		
 		// connect to database
 		db.connect();
 
 		// delete record by id and
 		// return record result count
-		int deleteDataResult = db.setData(deleteQuery, null);
+		db.setData(disableFKQuery, 1);
+		int deleteEquipResult = db.setData(deleteEquipQuery, stringList);
+		db.setData(deleteTripQuery, stringList);
+		db.setData(enableFKQuery, 1);
 
 		// close database connection
 		db.close();
 
-		return deleteDataResult;
+		return deleteEquipResult;
 	}
 }

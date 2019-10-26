@@ -4,31 +4,24 @@ import java.util.ArrayList;
 
 public class Main {
 
-	public static void main(String[] args) throws DLException {		
+	public static void main(String[] args) throws DLException {
+		
 		// instantiate equipment
 		// object and set id
-//		Equipment equipment = new Equipment();
-//		equipment.setId(568);
-////		
-////		// fetch equipment list and
-////		// log single equipment
-//		ArrayList<Equipment> equipmentList = equipment.fetch();
-//		formatTable(equipmentList);
-//		
-//		// re-set equipment id
-//		equipment.setId(894);
+		Equipment equipment = new Equipment();
+		equipment.setId(894);
 		
 		// alter existing data record
-//		equipment.put(String.valueOf(894), "EquipmentName", "JetBlue");
+		equipment.delete();
 		
-		// fetch equipment list and log
-		// single equipment with altered
-		// record
+		// fetch and log updated record
+		ArrayList<Equipment> equipmentList = equipment.fetch();
+		formatTable(equipmentList);
 		
-		Equipment postEquipment = new Equipment(5000, "POST Plane", "A datababase POST plane", 500);
-		postEquipment.post();
-		ArrayList<Equipment> alteredEquipmentList = postEquipment.fetch();
-		formatTable(alteredEquipmentList);
+//		Equipment postEquipment = new Equipment(5000, "POST Plane", "A datababase POST plane", 500);
+//		postEquipment.post();
+//		ArrayList<Equipment> alteredEquipmentList = postEquipment.fetch();
+//		formatTable(alteredEquipmentList);
 	}
 
 	// format data table from equipment list

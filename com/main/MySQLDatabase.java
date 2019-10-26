@@ -221,9 +221,7 @@ public class MySQLDatabase {
 	 * Sets the data for put, post and delete model methods.
 	 *
 	 * @param sqlString
-	 *            the sql string
 	 * @param numFields
-	 *            the num fields
 	 * @return int
 	 */
 	public int setData(String sqlString, int numFields) {

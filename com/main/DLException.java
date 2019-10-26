@@ -22,6 +22,9 @@ public class DLException extends Exception {
 		}
 	}
 
+	// write errors to log file by
+	// parsing exception and string 
+	// values
 	public void writeLog(Exception e, String... values) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("ErrorLog.txt", true));
 		try {
