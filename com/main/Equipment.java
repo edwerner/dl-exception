@@ -165,7 +165,7 @@ public class Equipment {
 		// close database connection
 		db.close();
 
-		// set data
+		// return records changed count
 		return putDataResult;
 	}
 
@@ -190,12 +190,13 @@ public class Equipment {
 		// connect to database
 		db.connect();
 
-		// post data and return result count
+		// post data
 		int postDataResult = db.setData(postQuery, stringList);
 
 		// close database connection
 		db.close();
-
+		
+		// return records changed count
 		return postDataResult;
 	}
 
@@ -215,7 +216,6 @@ public class Equipment {
 		// store prepared statement attributes
 		List<String> stringList = new ArrayList<String>();
 		stringList.add(0, String.valueOf(this.id));
-//		stringList.add(1, String.valueOf(this.id));
 		
 		// connect to database
 		db.connect();
@@ -229,7 +229,8 @@ public class Equipment {
 
 		// close database connection
 		db.close();
-
+		
+		// return records changed count
 		return deleteEquipResult;
 	}
 }

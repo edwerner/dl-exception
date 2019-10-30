@@ -28,10 +28,12 @@ public class DLException extends Exception {
 	public void writeLog(Exception e, String... values) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("ErrorLog.txt", true));
 		try {
+			// create new simple date format
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' hh:mm:ss a z");
 			Date date = new Date(System.currentTimeMillis());
 			writer.append("DateTime: " + formatter.format(date));
 
+			// create stacktrace element array
 			StackTraceElement[] stackTrace = e.getStackTrace();
 			int count = 0;
 

@@ -25,9 +25,11 @@ public class MySQLDatabase {
 	 */
 	public void connect() {
 		try {
+			// create connection with attributes
 			conn = DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass error info
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
@@ -41,9 +43,11 @@ public class MySQLDatabase {
 	 */
 	public void close() {
 		try {
+			// close connection
 			conn.close();
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass error info
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
@@ -56,9 +60,7 @@ public class MySQLDatabase {
 	 * Fetch data from mysql database called from model class.
 	 *
 	 * @param sqlString
-	 *            the sql string
 	 * @param numFields
-	 *            the num fields
 	 * @return objectlist
 	 */
 	public static ArrayList<ArrayList<Object>> getData(String sqlString, int numFields) {
@@ -72,6 +74,7 @@ public class MySQLDatabase {
 			stmnt = conn.createStatement();
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass error info
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
@@ -80,15 +83,18 @@ public class MySQLDatabase {
 		}
 
 		try {
+			// execute string query
 			rs = stmnt.executeQuery(sqlString);
 			while (rs.next()) {
 				for (int i = 1; i <= numFields; i++) {
 					tempList.add(rs.getString(i));
 				}
 			}
+			// add temp list to objectlist
 			objectList.add(tempList);
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass error info
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
@@ -96,6 +102,7 @@ public class MySQLDatabase {
 			}
 		}
 
+		// return objectlist
 		return objectList;
 	}
 
@@ -116,9 +123,11 @@ public class MySQLDatabase {
 		ArrayList<ArrayList<Object>> objectList = new ArrayList<ArrayList<Object>>();
 
 		try {
+			// create statement
 			stmnt = conn.createStatement();
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass error info
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
@@ -127,6 +136,7 @@ public class MySQLDatabase {
 		}
 
 		try {
+			// execute query
 			rs = stmnt.executeQuery(sqlString);
 
 			while (rs.next()) {
@@ -142,6 +152,7 @@ public class MySQLDatabase {
 			}
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass error info
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
@@ -151,6 +162,8 @@ public class MySQLDatabase {
 
 		if (columns) {
 			try {
+				// get result set metadata and
+				// print out table data
 				ResultSetMetaData rsmd = rs.getMetaData();
 				System.out.printf("%n%-10s%-17s%-24s%-10s", rsmd.getColumnName(1), rsmd.getColumnName(2),
 						rsmd.getColumnName(3), rsmd.getColumnName(4));
@@ -160,6 +173,7 @@ public class MySQLDatabase {
 
 			} catch (SQLException e) {
 				try {
+					// throw dlexception and pass error info
 					String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 					throw new DLException(e, errorInfo);
 				} catch (DLException e1) {
@@ -182,12 +196,14 @@ public class MySQLDatabase {
 
 		// store and return values
 		// in 2d arraylist
-		ArrayList<ArrayList<Object>> objectList = new ArrayList<ArrayList<Object>>();
-
+		ArrayList<ArrayList<Object>> objectList = null;
 		try {
 
 			// execute prepared statement
 			ResultSet rs = preparedStmt.executeQuery();
+			
+			//instantiate object list
+			objectList = new ArrayList<ArrayList<Object>>();
 
 			// iterate and store values
 			// in temp arraylist based
@@ -206,6 +222,7 @@ public class MySQLDatabase {
 			}
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass param
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
@@ -222,34 +239,41 @@ public class MySQLDatabase {
 	 *
 	 * @param sqlString
 	 * @param numFields
-	 * @return int
+	 * @return dataCount
 	 */
 	public int setData(String sqlString, int numFields) {
 
-		int status = -1;
+		int dataCount = -1;
 
 		try {
+			// create prepared statement
+			// and execute and get update
+			// count
 			PreparedStatement preparedStmt = conn.prepareStatement(sqlString);
 			preparedStmt.executeUpdate();
-			status = preparedStmt.getUpdateCount();
+			dataCount = preparedStmt.getUpdateCount();
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass param
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
 				System.out.println("There was an error completing an operation.");
 			}
-			status = -1;
+			dataCount = -1;
 		}
 
-		return status;
+		return dataCount;
 	}
+	
+
 
 	/**
-	 * Prepare.
+	 * prepare statement
 	 *
-	 * @param sql
-	 * @return preparedstatement
+	 * @param sqlString
+	 * @param stringList
+	 * @return preparedStmt
 	 */
 	private PreparedStatement prepare(String sqlString, List<String> stringList) {
 
@@ -265,6 +289,7 @@ public class MySQLDatabase {
 			}
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass param
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {
@@ -272,13 +297,27 @@ public class MySQLDatabase {
 			}
 		}
 
+		// return prepared statement
 		return preparedStmt;
 	}
 
+	/**
+	 * setData
+	 *
+	 * @param sqlString
+	 * @param stringList
+	 * @return rowCount
+	 */
 	public int setData(String sqlString, List<String> stringList) {
 		return executeStmt(sqlString, stringList);
 	}
 
+	/**executeStmt
+	 *
+	 * @param sqlString
+	 * @param stringList
+	 * @return rowCount
+	 */
 	private int executeStmt(String sqlString, List<String> stringList) {
 
 		int rowCount = 0;
@@ -293,6 +332,7 @@ public class MySQLDatabase {
 			rowCount = preparedStmt.executeUpdate();
 		} catch (SQLException e) {
 			try {
+				// throw dlexception and pass error info
 				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
 				throw new DLException(e, errorInfo);
 			} catch (DLException e1) {

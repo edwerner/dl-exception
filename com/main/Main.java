@@ -11,17 +11,14 @@ public class Main {
 		Equipment equipment = new Equipment();
 		equipment.setId(894);
 		
-		// alter existing data record
-		equipment.delete();
-		
 		// fetch and log updated record
 		ArrayList<Equipment> equipmentList = equipment.fetch();
 		formatTable(equipmentList);
 		
-//		Equipment postEquipment = new Equipment(5000, "POST Plane", "A datababase POST plane", 500);
-//		postEquipment.post();
-//		ArrayList<Equipment> alteredEquipmentList = postEquipment.fetch();
-//		formatTable(alteredEquipmentList);
+		// update and log existing data record
+		equipment.put("EquipmentName", "Airbus A320");
+		ArrayList<Equipment> alteredEquipmentList = equipment.fetch();
+		formatTable(alteredEquipmentList);
 	}
 
 	// format data table from equipment list
