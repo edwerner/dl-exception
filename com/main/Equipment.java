@@ -13,6 +13,8 @@ public class Equipment {
 	private String description;
 	private int capacity;
 	private MySQLDatabase db;
+	final String disableFKQuery = "SET FOREIGN_KEY_CHECKS=0;"; 
+	final String enableFKQuery = "SET FOREIGN_KEY_CHECKS=1;";
 
 	/**
 	 * Empty constructor
@@ -115,7 +117,7 @@ public class Equipment {
 		tempList = db.getData(query, stringList);
 
 		// close database connection
-		db.close();
+//		db.close();
 
 		// iterate through collection and
 		// set equipment entity attributes
@@ -156,14 +158,14 @@ public class Equipment {
 		stringList.add(1, String.valueOf(this.id));
 
 		// connect to database
-		db.connect();
+//		db.connect();
 
 		// query database with get
 		// method and save to database
 		int putDataResult = db.setData(putQuery, stringList);
 
 		// close database connection
-		db.close();
+//		db.close();
 
 		// return records changed count
 		return putDataResult;
@@ -207,9 +209,6 @@ public class Equipment {
 	 * @return int
 	 */
 	public int delete() {
-		
-		String disableFKQuery = "SET FOREIGN_KEY_CHECKS=0;"; 
-		String enableFKQuery = "SET FOREIGN_KEY_CHECKS=1;";
 		String deleteEquipQuery = "DELETE FROM equipment WHERE EquipID = ?;";
 		String deleteTripQuery = "DELETE FROM trip WHERE EquipId = ?;";
 		
@@ -232,5 +231,17 @@ public class Equipment {
 		
 		// return records changed count
 		return deleteEquipResult;
+	}
+	
+	public void swap(int equipId) {
+		Equipment swapEquip = new Equipment(equipId);
+//		db.connect();
+		db.startTrans();
+		Equipment originalEquip = this.fetch().get(0);
+		Equipment swapEquipTemp = swapEquip.fetch().get(0);
+		swapEquip.put("EquipmentName", originalEquip.getName()); 
+		this.put("EquipmentName", String.valueOf(swapEquipTemp.getName()));
+//		db.endTrans();
+		db.close();
 	}
 }

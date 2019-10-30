@@ -344,4 +344,52 @@ public class MySQLDatabase {
 		// default to zero
 		return rowCount;
 	}
+
+	public void startTrans() {
+		try {
+			conn.setAutoCommit(false);
+		} catch (SQLException e) {
+			try {
+				// rollback transaction
+				rollbackTrans();
+				
+				// throw dlexception and pass error info
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+		}
+	}
+	
+	public void endTrans() {
+		try {
+			conn.setAutoCommit(true);
+		} catch (SQLException e) {
+			try {
+				// rollback transaction
+				rollbackTrans();
+				
+				// throw dlexception and pass error info
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+		}
+	}
+	
+	public void rollbackTrans() {
+		try {
+			conn.rollback();
+		} catch (SQLException e) {
+			try {
+				// throw dlexception and pass error info
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+		}
+	}
 }

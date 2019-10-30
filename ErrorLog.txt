@@ -1,0 +1,20 @@
+DateTime: 2019-10-30 at 07:25:42 PM EDT
+Class name: com.main.MySQLDatabase
+Line number: 384
+Error message: No operations allowed after connection closed.
+
+DateTime: 2019-10-30 at 07:25:42 PM EDT
+Class name: com.main.MySQLDatabase
+Line number: 350
+Error message: No operations allowed after connection closed.
+
+DateTime: 2019-10-30 at 07:25:43 PM EDT
+Class name: com.main.MySQLDatabase
+Line number: 283
+Error message: No operations allowed after connection closed.
+
+DateTime: 2019-10-30 at 07:26:01 PM EDT
+Class name: com.main.MySQLDatabase
+Line number: 283
+Error message: No operations allowed after connection closed.
+

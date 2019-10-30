@@ -11,14 +11,13 @@ public class Main {
 		Equipment equipment = new Equipment();
 		equipment.setId(894);
 		
-		// fetch and log updated record
-		ArrayList<Equipment> equipmentList = equipment.fetch();
-		formatTable(equipmentList);
+		ArrayList<Equipment> equipList = equipment.fetch();
+		formatTable(equipList);
 		
-		// update and log existing data record
-		equipment.put("EquipmentName", "Airbus A320");
-		ArrayList<Equipment> alteredEquipmentList = equipment.fetch();
-		formatTable(alteredEquipmentList);
+		equipment.swap(568);
+//		
+//		ArrayList<Equipment> swapEquipList = equipment.fetch();
+//		formatTable(swapEquipList);
 	}
 
 	// format data table from equipment list
