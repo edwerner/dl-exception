@@ -208,7 +208,6 @@ public class MySQLDatabase {
 			// in temp arraylist based
 			// on data type
 			while (rs.next()) {
-				System.out.println("RS NEXT: " + rs);
 				tempList = new ArrayList<Object>();
 				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
 					if (rs.getMetaData().getColumnTypeName(i) == "INT") {

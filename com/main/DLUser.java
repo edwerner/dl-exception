@@ -40,14 +40,14 @@ public abstract class DLUser {
 	
 	public boolean login(String userName, String password) {
 		boolean loginStatus = false;
-		ArrayList<BLUser> users = this.fetch();
-		System.out.println("USERS: " + users);
-//		if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
-//			loginStatus = true;
-//			System.out.println("User login is successful");
-//		}
+		BLUser user = this.fetch().get(0);
+		if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
+			loginStatus = true;
+		}
 		return loginStatus;
 	}
+	
+	public abstract boolean save(BLUser user, BLEquipment equipment);
 
 	public abstract ArrayList<BLUser> fetch();
 

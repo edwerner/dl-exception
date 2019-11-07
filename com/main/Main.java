@@ -6,15 +6,23 @@ public class Main {
 
 	public static void main(String[] args) throws DLException {
 		
-		DLUser user = new BLUser(1);
-		
-		// fetch and print out values
-		ArrayList<BLUser> userList = user.fetch();
-		System.out.println("UserList size: " + userList.size());
-//		formatTable(userList);
-		System.out.println("USER LIST: " + userList);
+		BLUser user = new BLUser(1).fetch().get(0);
 				
-//		user.login("admin", "admin");
+		boolean loggedIn = user.login("admin", "admin");
+		System.out.println("Logged in: " + loggedIn);
+		
+		BLEquipment equipment = new BLEquipment();
+		equipment.setCapacity(189);
+		equipment.setDescription("Cargo aircraft");
+		equipment.setId(350);
+		equipment.setName("CL-44D4");
+		
+		boolean saved = user.save(user, equipment);
+		System.out.println("Saved: " + saved);
+		
+		
+		// save equipment object using
+		// authorized user access
 		
 //		// instantiate equipment object
 //		// object and set id

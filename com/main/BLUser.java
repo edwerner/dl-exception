@@ -27,20 +27,21 @@ public class BLUser extends DLUser {
 	}
 	
 	public boolean save(BLUser user, BLEquipment equipment) {
-//		boolean isLoggedIn = this.login(user.getUsername(), user.getPassword());
-//		System.out.println("IS LOGGED IN: " + isLoggedIn);
 		
 		boolean authenticated = false;
-		if (user.getAccess().equals("Admin") || user.getAccess().equals("Editor")) {
-			
-			// user is authenticated
-			authenticated = true;
-			System.out.println("User has save rights");
-			
-			// save new equipment object
-			equipment.post();
-		} else {
-			System.out.println("User has no save rights");
+		
+		if (user != null) {
+			if (user.getAccess().equals("Admin") || user.getAccess().equals("Editor")) {
+				
+				// user is authenticated
+				authenticated = true;
+				System.out.println("User has save rights");
+				
+				// save new equipment object
+				equipment.post();
+			} else {
+				System.out.println("User has no save rights");
+			}
 		}
 		return authenticated;
 	}
@@ -67,13 +68,10 @@ public class BLUser extends DLUser {
 		// query database with get method
 		tempList = db.getData(query, stringList);
 
-		System.out.println("TEMP LIST: " + tempList);
-
-
 		// iterate through collection and
 		// set equipment entity attributes
 		for (int i = 0; i < tempList.size(); i++) {
-			System.out.println("Entered for loop");
+			
 			// retrieve and format objects
 			// returned from database query
 			int userId = (int) tempList.get(i).get(0);
