@@ -1,20 +1,30 @@
-DateTime: 2019-10-30 at 07:25:42 PM EDT
+DateTime: 2019-11-07 at 03:43:48 PM EST
 Class name: com.main.MySQLDatabase
-Line number: 384
-Error message: No operations allowed after connection closed.
+Line number: 287
+Error message: Parameter index out of range (1 > number of parameters, which is 0).
 
-DateTime: 2019-10-30 at 07:25:42 PM EDT
+DateTime: 2019-11-07 at 03:44:08 PM EST
 Class name: com.main.MySQLDatabase
-Line number: 350
-Error message: No operations allowed after connection closed.
+Line number: 287
+Error message: Parameter index out of range (1 > number of parameters, which is 0).
 
-DateTime: 2019-10-30 at 07:25:43 PM EDT
+DateTime: 2019-11-07 at 03:44:20 PM EST
 Class name: com.main.MySQLDatabase
-Line number: 283
-Error message: No operations allowed after connection closed.
+Line number: 287
+Error message: Parameter index out of range (1 > number of parameters, which is 0).
 
-DateTime: 2019-10-30 at 07:26:01 PM EDT
+DateTime: 2019-11-07 at 03:44:37 PM EST
 Class name: com.main.MySQLDatabase
-Line number: 283
-Error message: No operations allowed after connection closed.
+Line number: 287
+Error message: Parameter index out of range (1 > number of parameters, which is 0).
+
+DateTime: 2019-11-07 at 03:48:27 PM EST
+Class name: com.main.MySQLDatabase
+Line number: 287
+Error message: Parameter index out of range (1 > number of parameters, which is 0).
+
+DateTime: 2019-11-07 at 03:48:46 PM EST
+Class name: com.main.MySQLDatabase
+Line number: 287
+Error message: Parameter index out of range (1 > number of parameters, which is 0).
 

@@ -110,9 +110,7 @@ public class MySQLDatabase {
 	 * Fetch data from mysql database called from model class.
 	 *
 	 * @param sqlString
-	 *            the sql string
 	 * @param columns
-	 *            the columns
 	 * @return objectlist
 	 */
 	public ArrayList<ArrayList<Object>> getData(String sqlString, boolean columns) {
@@ -188,7 +186,7 @@ public class MySQLDatabase {
 
 		// create prepared statement
 		// with sql string
-		PreparedStatement preparedStmt = prepare(sqlString, stringList);
+		PreparedStatement preparedStmt = prepare(sqlString, stringList);;
 
 		// create equipment to list,
 		// default to null value
@@ -201,6 +199,7 @@ public class MySQLDatabase {
 
 			// execute prepared statement
 			ResultSet rs = preparedStmt.executeQuery();
+			System.out.println("RS: " + rs);
 			
 			//instantiate object list
 			objectList = new ArrayList<ArrayList<Object>>();
@@ -209,6 +208,7 @@ public class MySQLDatabase {
 			// in temp arraylist based
 			// on data type
 			while (rs.next()) {
+				System.out.println("RS NEXT: " + rs);
 				tempList = new ArrayList<Object>();
 				for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
 					if (rs.getMetaData().getColumnTypeName(i) == "INT") {

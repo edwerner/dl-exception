@@ -6,22 +6,42 @@ public class Main {
 
 	public static void main(String[] args) throws DLException {
 		
-		// instantiate equipment
-		// object and set id
-		Equipment equipment = new Equipment();
-		equipment.setId(894);
+		DLUser user = new BLUser(1);
 		
-		ArrayList<Equipment> equipList = equipment.fetch();
-		formatTable(equipList);
+		// fetch and print out values
+		ArrayList<BLUser> userList = user.fetch();
+		System.out.println("UserList size: " + userList.size());
+//		formatTable(userList);
+		System.out.println("USER LIST: " + userList);
+				
+//		user.login("admin", "admin");
 		
-		equipment.swap(568);
+//		// instantiate equipment object
+//		// object and set id
+//		BLEquipment equipment = new BLEquipment(894);
 //		
-//		ArrayList<Equipment> swapEquipList = equipment.fetch();
+//		// fetch and print out values
+//		ArrayList<BLEquipment> equipList = equipment.fetch();
+//		formatTable(equipList);
+//		
+//		// swap equipment names
+//		equipment.swap(568);
+//
+//		// fetch new equipment list
+//		ArrayList<BLEquipment> swapEquipList = equipment.fetch();
 //		formatTable(swapEquipList);
+//		
+//		// instantiate equipment
+//		// object and set id
+//		BLEquipment equipmentReset = new BLEquipment(568);
+//
+//		// fetch updated equipment instance
+//		ArrayList<BLEquipment> resetEquipList = equipmentReset.fetch();
+//		formatTable(resetEquipList);
 	}
 
 	// format data table from equipment list
-	public static void formatTable(ArrayList<Equipment> equipmentList) {
+	public static void formatTable(ArrayList<BLEquipment> equipmentList) {
 
 		for (int i = 0; i < equipmentList.size(); i++) {
 			System.out.format("%n%-10s%-17s%-24s%-10s", String.valueOf(equipmentList.get(i).getId()),

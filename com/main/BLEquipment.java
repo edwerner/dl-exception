@@ -6,20 +6,18 @@ import java.util.List;
 /**
  * The Class Equipment
  */
-public class Equipment {
+public class BLEquipment {
 
 	private int id;
 	private String name;
 	private String description;
 	private int capacity;
 	private MySQLDatabase db;
-	final String disableFKQuery = "SET FOREIGN_KEY_CHECKS=0;"; 
-	final String enableFKQuery = "SET FOREIGN_KEY_CHECKS=1;";
 
 	/**
 	 * Empty constructor
 	 */
-	public Equipment() {
+	public BLEquipment() {
 		// create sql database instance
 		// and connect to database
 		db = new MySQLDatabase();
@@ -30,7 +28,7 @@ public class Equipment {
 	 *
 	 * @param id
 	 */
-	public Equipment(int id) {
+	public BLEquipment(int id) {
 		this.id = id;
 		
 		// create sql database instance
@@ -46,7 +44,7 @@ public class Equipment {
 	 * @param description
 	 * @param capacity
 	 */
-	public Equipment(int id, String name, String description, int capacity) {
+	public BLEquipment(int id, String name, String description, int capacity) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -95,16 +93,16 @@ public class Equipment {
 	 * @param columns
 	 * @return equipment
 	 */
-	public ArrayList<Equipment> fetch() {
+	public ArrayList<BLEquipment> fetch() {
 
 		// query database for equipment by id
 		ArrayList<ArrayList<Object>> tempList = new ArrayList<ArrayList<Object>>();
-		ArrayList<Equipment> equipmentList = new ArrayList<Equipment>();
+		ArrayList<BLEquipment> equipmentList = new ArrayList<BLEquipment>();
 
 		// create and execute query passing in
 		// table format boolean and return
 		// equipment collection
-		String query = "SELECT * FROM equipment where EquipID = ?";
+		String query = "SELECT * FROM equipment WHERE EquipID = ?";
 
 		// connect to database
 		db.connect();
@@ -115,9 +113,6 @@ public class Equipment {
 
 		// query database with get method
 		tempList = db.getData(query, stringList);
-
-		// close database connection
-//		db.close();
 
 		// iterate through collection and
 		// set equipment entity attributes
@@ -132,10 +127,13 @@ public class Equipment {
 
 			// instantiate new equipment pojo
 			// and add to equipment arraylist
-			Equipment equipment = new Equipment(id, name, description, capacity);
+			BLEquipment equipment = new BLEquipment(id, name, description, capacity);
 			equipmentList.add(equipment);
 		}
-
+		
+		// close database connection
+		db.close();
+		
 		// return equipment arraylist
 		return equipmentList;
 	}
@@ -157,15 +155,9 @@ public class Equipment {
 		stringList.add(0, value);
 		stringList.add(1, String.valueOf(this.id));
 
-		// connect to database
-//		db.connect();
-
 		// query database with get
 		// method and save to database
 		int putDataResult = db.setData(putQuery, stringList);
-
-		// close database connection
-//		db.close();
 
 		// return records changed count
 		return putDataResult;
@@ -209,6 +201,8 @@ public class Equipment {
 	 * @return int
 	 */
 	public int delete() {
+		String disableFKQuery = "SET FOREIGN_KEY_CHECKS=0;"; 
+		String enableFKQuery = "SET FOREIGN_KEY_CHECKS=1;";
 		String deleteEquipQuery = "DELETE FROM equipment WHERE EquipID = ?;";
 		String deleteTripQuery = "DELETE FROM trip WHERE EquipId = ?;";
 		
@@ -234,14 +228,28 @@ public class Equipment {
 	}
 	
 	public void swap(int equipId) {
-		Equipment swapEquip = new Equipment(equipId);
-//		db.connect();
+		
+		// create new equipment
+		// instance with swap id
+		BLEquipment swapEquip = new BLEquipment(equipId);
+		
+		// start transaction
 		db.startTrans();
-		Equipment originalEquip = this.fetch().get(0);
-		Equipment swapEquipTemp = swapEquip.fetch().get(0);
+		
+		// fetch original equipment
+		BLEquipment originalEquip = this.fetch().get(0);
+		
+		// set temp equipment to swap
+		BLEquipment swapEquipTemp = swapEquip.fetch().get(0);
+		
+		// swap equipment names
 		swapEquip.put("EquipmentName", originalEquip.getName()); 
 		this.put("EquipmentName", String.valueOf(swapEquipTemp.getName()));
-//		db.endTrans();
+		
+		// end transaction
+		db.endTrans();
+		
+		// close database connection
 		db.close();
 	}
 }
