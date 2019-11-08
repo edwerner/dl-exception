@@ -25,19 +25,20 @@ public class Main {
 			equipment.swap(894);
 
 			// fetch swapped equipment list
-			formatTable(equipment.fetch());
-		}	
-		
-//		// test login and save logic
-//		// for admin and editor access
-//		BLEquipment equipment = new BLEquipment();
-//		equipment.setCapacity(189);
-//		equipment.setDescription("Cargo aircraft");
-//		equipment.setId(350);
-//		equipment.setName("CL-44D4");
-//		
-//		boolean saved = user.save(user, equipment);
-//		System.out.println("Saved: " + saved);
+			formatTable(equipment.fetch());	
+			
+//			// test login and save logic
+//			// for admin and editor access
+//			equipment = new BLEquipment();
+//			equipment.setCapacity(189);
+//			equipment.setDescription("Passenger and Cargo");
+//			equipment.setId(350);
+//			equipment.setName("CL-44D4");
+//			
+//			boolean saved = user.save(user, equipment);
+//			System.out.println("");
+//			System.out.println("Saved: " + saved);
+		}
 	}
 
 	// format data table from equipment list
