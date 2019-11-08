@@ -194,22 +194,20 @@ public class BLEquipment {
 	
 	public void swap(int equipId) {
 		
-		// create new equipment
-		// instance with swap id
-		BLEquipment swapEquip = new BLEquipment(equipId);
-		
 		// start transaction
 		db.startTrans();
 		
 		// fetch original equipment
 		BLEquipment originalEquip = this.fetch().get(0);
 		
+		this.id = equipId;
+		
 		// set temp equipment to swap
-		BLEquipment swapEquipTemp = swapEquip.fetch().get(0);
+		BLEquipment swapEquipTemp = this.fetch().get(0);
 		
 		// swap equipment names
-		swapEquip.put("EquipmentName", originalEquip.getName()); 
-		this.put("EquipmentName", String.valueOf(swapEquipTemp.getName()));
+		originalEquip.put("EquipmentName", swapEquipTemp.getName()); 
+		swapEquipTemp.put("EquipmentName", originalEquip.getName());
 		
 		// end transaction
 		db.endTrans();

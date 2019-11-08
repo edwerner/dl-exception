@@ -19,18 +19,17 @@ public class Main {
 			BLEquipment equipment = new BLEquipment(568);
 			
 			// fetch and print out values
-			ArrayList<BLEquipment> equipList = equipment.fetch();
-			formatTable(equipList);
+			formatTable(equipment.fetch());
 			
 			// swap equipment names
 			equipment.swap(894);
 
 			// fetch new equipment list
-			ArrayList<BLEquipment> swapEquipList = equipment.fetch();
-			formatTable(swapEquipList);
+			formatTable(equipment.fetch());
 		}	
 		
 //		// test login and save logic
+//		// for admin and editor access
 //		BLEquipment equipment = new BLEquipment();
 //		equipment.setCapacity(189);
 //		equipment.setDescription("Cargo aircraft");
