@@ -46,9 +46,12 @@ public abstract class DLUser {
 	 * @return boolean
 	 */
 	public boolean login(String userName, String password) {
+		
+		// default login status
 		boolean loginStatus = false;
 		
-		// fetch user
+		// fetch current user and validate
+		// username and password
 		BLUser user = this.fetch().get(0);
 		if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
 			loginStatus = true;
