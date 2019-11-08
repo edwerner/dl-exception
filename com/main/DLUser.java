@@ -49,7 +49,7 @@ public abstract class DLUser {
 		// default login status
 		boolean loginStatus = false;
 		
-		// fetch current user and validate
+		// fetch current bluser and validate
 		// username and password
 		BLUser user = this.fetch().get(0);
 		if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {

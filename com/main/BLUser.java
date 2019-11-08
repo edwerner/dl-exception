@@ -58,13 +58,13 @@ public class BLUser extends DLUser {
 	 */
 	public ArrayList<BLUser> fetch() {
 
-		// query database for equipment by id
+		// query database for bluser by id
 		ArrayList<ArrayList<Object>> tempList = new ArrayList<ArrayList<Object>>();
 		ArrayList<BLUser> userList = new ArrayList<BLUser>();
 
 		// create and execute query passing in
 		// table format boolean and return
-		// equipment collection
+		// bluser collection
 		String query = "SELECT * FROM users WHERE UserID = ?";
 
 		// connect to database
@@ -78,7 +78,7 @@ public class BLUser extends DLUser {
 		tempList = db.getData(query, stringList);
 
 		// iterate through collection and
-		// set equipment entity attributes
+		// set user entity attributes
 		for (int i = 0; i < tempList.size(); i++) {
 			
 			// retrieve and format objects
@@ -98,7 +98,7 @@ public class BLUser extends DLUser {
 		// close database connection
 		db.close();
 
-		// return equipment arraylist
+		// return bluser arraylist
 		return userList;
 	}
 }
