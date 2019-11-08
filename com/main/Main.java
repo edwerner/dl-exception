@@ -26,11 +26,6 @@ public class Main {
 
 			// fetch swapped equipment list
 			formatTable(equipment.fetch());
-			
-			equipment = new BLEquipment(894);
-
-			// fetch original equipment list
-			formatTable(equipment.fetch());
 		}	
 		
 //		// test login and save logic

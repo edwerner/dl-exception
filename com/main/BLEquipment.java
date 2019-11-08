@@ -194,26 +194,39 @@ public class BLEquipment {
 	
 	public void swap(int equipId) {
 		
-		// start transaction
-		db.startTrans();
-		
-		// fetch original equipment
-		BLEquipment originalEquip = this.fetch().get(0);
-		
-		this.id = equipId;
-		
-		// set temp equipment to swap
-		BLEquipment swapEquipTemp = this.fetch().get(0);
-		
-		// swap equipment names
-		originalEquip.put("EquipmentName", swapEquipTemp.getName()); 
-		swapEquipTemp.put("EquipmentName", originalEquip.getName());
-		
-		// end transaction
-		db.endTrans();
-		
-		// close database connection
-		db.close();
+		try {
+			// start transaction
+			db.startTrans();
+			
+			// fetch original equipment
+			BLEquipment originalEquip = this.fetch().get(0);
+			
+			this.id = equipId;
+			
+			// set temp equipment to swap
+			BLEquipment swapEquipTemp = this.fetch().get(0);
+			
+			// swap equipment names
+			originalEquip.put("EquipmentName", swapEquipTemp.getName()); 
+			swapEquipTemp.put("EquipmentName", originalEquip.getName());
+			
+			// end transaction
+			db.endTrans();
+		} catch (Exception e) {
+			try {
+				// rollback transaction
+				db.rollbackTrans();
+				
+				// throw dlexception and pass error info
+				String[] errorInfo = { String.valueOf(e.getStackTrace()) };
+				throw new DLException(e, errorInfo);
+			} catch (DLException e1) {
+				System.out.println("There was an error completing an operation.");
+			}
+		} finally {
+			// close database connection
+			db.close();
+		}
 	}
 	
 	// format data table from equipment list
