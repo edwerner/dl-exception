@@ -19,7 +19,7 @@ public abstract class DLUser {
 		// and connect to database
 		db = new MySQLDatabase();
 	}
-
+	
 	public DLUser(int userId,
 			String userName, 
 			String password, 
@@ -37,18 +37,43 @@ public abstract class DLUser {
 		// and connect to database
 		db = new MySQLDatabase();
 	}
-	
+
+	/**
+	 * Log in user with username and password
+	 *
+	 * @param userName
+	 * @param password
+	 * @return boolean
+	 */
 	public boolean login(String userName, String password) {
 		boolean loginStatus = false;
+		
+		// fetch user
 		BLUser user = this.fetch().get(0);
 		if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
 			loginStatus = true;
 		}
+		
+		// return login status
 		return loginStatus;
 	}
-	
+
+	/**
+	 * Method contract for new equipment save
+	 *
+	 * @param user
+	 * @param  equipment
+	 * @return boolean
+	 */
 	public abstract boolean save(BLUser user, BLEquipment equipment);
 
+	/**
+	 * Method contract for bluser fetch
+	 *
+	 * @param user
+	 * @param  equipment
+	 * @return bluser arraylist
+	 */
 	public abstract ArrayList<BLUser> fetch();
 
 	public int getUserId() {

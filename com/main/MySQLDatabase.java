@@ -199,7 +199,6 @@ public class MySQLDatabase {
 
 			// execute prepared statement
 			ResultSet rs = preparedStmt.executeQuery();
-			System.out.println("RS: " + rs);
 			
 			//instantiate object list
 			objectList = new ArrayList<ArrayList<Object>>();

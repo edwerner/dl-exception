@@ -26,26 +26,36 @@ public class BLUser extends DLUser {
 		this.access = access;
 	}
 	
+	/**
+	 * Save equipment object with
+	 * access check
+	 *
+	 * @return boolean
+	 */
 	public boolean save(BLUser user, BLEquipment equipment) {
-		
-		boolean authenticated = false;
-		
-		if (user != null) {
-			if (user.getAccess().equals("Admin") || user.getAccess().equals("Editor")) {
-				
-				// user is authenticated
-				authenticated = true;
-				System.out.println("User has save rights");
-				
-				// save new equipment object
-				equipment.post();
-			} else {
-				System.out.println("User has no save rights");
-			}
-		}
-		return authenticated;
-	}
 	
+		// default status
+		boolean isSaved = false;
+		
+		// check for user and admin/editor access
+		if (user.getAccess().equals("Admin") || user.getAccess().equals("Editor")) {
+			if (equipment.fetch().isEmpty()) {
+				isSaved = true;
+			}
+			
+			// save new equipment object
+			equipment.post();
+		}
+		
+		// return save status
+		return isSaved;
+	}
+
+	/**
+	 * Fetch bluser arraylist
+	 *
+	 * @return bluser arraylist
+	 */
 	public ArrayList<BLUser> fetch() {
 
 		// query database for equipment by id
@@ -63,7 +73,6 @@ public class BLUser extends DLUser {
 		// create string list and set id as string
 		List<String> stringList = new ArrayList<String>();
 		stringList.add(0, String.valueOf(this.getUserId()));
-		System.out.println("USER ID: " + this.getUserId());
 
 		// query database with get method
 		tempList = db.getData(query, stringList);

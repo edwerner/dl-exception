@@ -20,7 +20,6 @@ public class Main {
 		boolean saved = user.save(user, equipment);
 		System.out.println("Saved: " + saved);
 		
-		
 		// save equipment object using
 		// authorized user access
 		
