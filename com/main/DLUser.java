@@ -16,7 +16,6 @@ public abstract class DLUser {
 		this.userId = userId;
 		
 		// create sql database instance
-		// and connect to database
 		db = new MySQLDatabase();
 	}
 	

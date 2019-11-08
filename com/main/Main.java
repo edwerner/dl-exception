@@ -6,45 +6,39 @@ public class Main {
 
 	public static void main(String[] args) throws DLException {
 		
-		BLUser user = new BLUser(1).fetch().get(0);
-				
-		boolean loggedIn = user.login("admin", "admin");
-		System.out.println("Logged in: " + loggedIn);
+		// create and fetch bluser by userid
+		BLUser user = new BLUser(3).fetch().get(0);
 		
-		BLEquipment equipment = new BLEquipment();
-		equipment.setCapacity(189);
-		equipment.setDescription("Cargo aircraft");
-		equipment.setId(350);
-		equipment.setName("CL-44D4");
+		// login user with username
+		// and password credentials
+		boolean loggedIn = user.login("general", "general");
 		
-		boolean saved = user.save(user, equipment);
-		System.out.println("Saved: " + saved);
+		if (loggedIn) {
+			// instantiate equipment
+			// object and set id
+			BLEquipment equipment = new BLEquipment(568);
+			
+			// fetch and print out values
+			ArrayList<BLEquipment> equipList = equipment.fetch();
+			formatTable(equipList);
+			
+			// swap equipment names
+			equipment.swap(894);
+
+			// fetch new equipment list
+			ArrayList<BLEquipment> swapEquipList = equipment.fetch();
+			formatTable(swapEquipList);
+		}	
 		
-		// save equipment object using
-		// authorized user access
-		
-//		// instantiate equipment object
-//		// object and set id
-//		BLEquipment equipment = new BLEquipment(894);
+//		// test login and save logic
+//		BLEquipment equipment = new BLEquipment();
+//		equipment.setCapacity(189);
+//		equipment.setDescription("Cargo aircraft");
+//		equipment.setId(350);
+//		equipment.setName("CL-44D4");
 //		
-//		// fetch and print out values
-//		ArrayList<BLEquipment> equipList = equipment.fetch();
-//		formatTable(equipList);
-//		
-//		// swap equipment names
-//		equipment.swap(568);
-//
-//		// fetch new equipment list
-//		ArrayList<BLEquipment> swapEquipList = equipment.fetch();
-//		formatTable(swapEquipList);
-//		
-//		// instantiate equipment
-//		// object and set id
-//		BLEquipment equipmentReset = new BLEquipment(568);
-//
-//		// fetch updated equipment instance
-//		ArrayList<BLEquipment> resetEquipList = equipmentReset.fetch();
-//		formatTable(resetEquipList);
+//		boolean saved = user.save(user, equipment);
+//		System.out.println("Saved: " + saved);
 	}
 
 	// format data table from equipment list
