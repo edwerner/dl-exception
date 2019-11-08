@@ -24,7 +24,12 @@ public class Main {
 			// swap equipment names
 			equipment.swap(894);
 
-			// fetch new equipment list
+			// fetch swapped equipment list
+			formatTable(equipment.fetch());
+			
+			equipment = new BLEquipment(894);
+
+			// fetch original equipment list
 			formatTable(equipment.fetch());
 		}	
 		

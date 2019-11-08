@@ -215,6 +215,16 @@ public class BLEquipment {
 		// close database connection
 		db.close();
 	}
+	
+	// format data table from equipment list
+	public void formatTable(ArrayList<BLEquipment> equipmentList) {
+
+		for (int i = 0; i < equipmentList.size(); i++) {
+			System.out.format("%n%-10s%-17s%-24s%-10s", String.valueOf(equipmentList.get(i).getId()),
+					equipmentList.get(i).getName(), equipmentList.get(i).getDescription(),
+					String.valueOf(equipmentList.get(i).getCapacity()));
+		}
+	}
 
 	public int getId() {
 		return id;
