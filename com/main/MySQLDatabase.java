@@ -12,12 +12,12 @@ public class MySQLDatabase {
 	private String password;
 
 	/**
-	 * Instantiates a new my SQL database and sets database connection attributes.
+	 * Instantiates a new MySQL database and sets database connection attributes.
 	 */
 	public MySQLDatabase() {
 		url = "jdbc:mysql://localhost:3306/travel?useSSL=false";
 		username = "root";
-		password = "student";
+		password = "Gv3rn1ca";
 	}
 
 	/**
